@@ -1,0 +1,29 @@
+version: '3.3'
+
+services:
+ app:
+    container_name: Mustafa
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python3 -m Mawada
+    restart: on-failure
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db/Mustafa
+    depends_on:
+      - db
+
+ db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=Mustafa
+    volumes:
+      - db:/var/lib/postgresql/data
+volumes:
+  db:
+    driver: local
+  botdata:
+    driver: local
